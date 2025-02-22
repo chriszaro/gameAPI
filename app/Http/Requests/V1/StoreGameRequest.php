@@ -44,7 +44,7 @@ class StoreGameRequest extends FormRequest
                 'required',
                 'string',
                 'min:2',
-                'regex:/^[A-Za-z]*$/'
+                'regex:/^[A-Za-z]+([ -][A-Za-z]+)?$/'
             ]
         ];
     }
@@ -54,5 +54,15 @@ class StoreGameRequest extends FormRequest
         $this->merge([
             'release_date' => $this->releaseDate
         ]);
+    }
+
+
+    public function messages()
+    {
+        return [
+            'title.regex' => 'Title can only contain A-Z a-z 0-9 - : \' ( ) ! #',
+            'description.regex' => 'Description can only contain A-Z a-z 0-9 - : \' ( ) ! #',
+            'genre.regex' => 'Genre can contain only words or phrases of two words',
+        ];
     }
 }

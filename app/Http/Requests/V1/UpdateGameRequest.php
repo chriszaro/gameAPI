@@ -74,4 +74,13 @@ class UpdateGameRequest extends FormRequest
             ]);
         }
     }
+
+    public function messages()
+    {
+        return [
+            'title.regex' => 'Title can only contain A-Z a-z 0-9 - : \' ( ) ! #',
+            'description.regex' => 'Description can only contain A-Z a-z 0-9 - : \' ( ) ! #',
+            'genre.regex' => 'Genre can contain only words or phrases of two words',
+        ];
+    }
 }
