@@ -97,8 +97,10 @@ class GameController extends Controller
     {
         $user = request()->user();
         $user_id = $user->id;
-        if ($game->user_id == $user_id)
+        if ($game->user_id == $user_id || $user->role == 'Admin') {
             $game->delete();
+            return response()->json(['message' => 'Deletion was successful'], 200);
+        }
         else
             return response()->json(['message' => 'You cannot delete another user\'s game'], 401);
     }
