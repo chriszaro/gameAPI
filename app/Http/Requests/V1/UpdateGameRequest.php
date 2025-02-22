@@ -58,7 +58,7 @@ class UpdateGameRequest extends FormRequest
                 'required',
                 'string',
                 'min:2',
-                'regex:/^[A-Za-z]*$/'
+                'regex:/^[A-Za-z]+([ -][A-Za-z]+)?$/'
             ]
         ];
 //        }
