@@ -38,4 +38,12 @@ class StoreUserRequest extends FormRequest
             ]
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'username.regex' => 'Username must start with a letter and can contain only letters and numbers',
+            'password.regex' => 'Password has to contain at least one uppercase character, one lowercase character, one number and one special character',
+        ];
+    }
 }
