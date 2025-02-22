@@ -10,8 +10,20 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'username' => 'required',
-            'password' => 'required',
+            'username' => [
+                'required',
+                'string',
+                'unique:users',
+                'min:6',
+                'max:50',
+                'regex:/^[A-Za-z][A-Za-z0-9]{5,49}$/'
+            ],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/'
+            ]
         ]);
 
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
