@@ -24,10 +24,28 @@ class StoreGameRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string'],
-            'description' => ['required', 'string'],
-            'releaseDate' => ['required', 'string'],
-            'genre' => ['required', 'string']
+            'title' => [
+                'required',
+                'string',
+                'min:2',
+                'regex:/^[A-Za-z0-9 -:\'()!#]*$/'
+            ],
+            'description' => [
+                'required',
+                'string',
+                'regex:/^[A-Za-z0-9 -:\'()!#]*$/'
+            ],
+            'releaseDate' => [
+                'required',
+                'string',
+                'date_format:Y-m-d'
+            ],
+            'genre' => [
+                'required',
+                'string',
+                'min:2',
+                'regex:/^[A-Za-z]*$/'
+            ]
         ];
     }
 

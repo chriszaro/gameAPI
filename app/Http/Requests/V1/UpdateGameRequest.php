@@ -34,10 +34,32 @@ class UpdateGameRequest extends FormRequest
 //            ];
 //        } else {
         return [
-            'title' => ['sometimes', 'required', 'string'],
-            'description' => ['sometimes', 'required', 'string'],
-            'releaseDate' => ['sometimes', 'required', 'string'],
-            'genre' => ['sometimes', 'required', 'string'],
+            'title' => [
+                'sometimes',
+                'required',
+                'string',
+                'min:2',
+                'regex:/^[A-Za-z0-9 -:\'()!#]*$/'
+            ],
+            'description' => [
+                'sometimes',
+                'required',
+                'string',
+                'regex:/^[A-Za-z0-9 -:\'()!#]*$/'
+            ],
+            'releaseDate' => [
+                'sometimes',
+                'required',
+                'string',
+                'date_format:Y-m-d'
+            ],
+            'genre' => [
+                'sometimes',
+                'required',
+                'string',
+                'min:2',
+                'regex:/^[A-Za-z]*$/'
+            ]
         ];
 //        }
 
