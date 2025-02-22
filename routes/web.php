@@ -29,7 +29,7 @@ Route::get('/setup', function () {
    if (!Auth::attempt($credentials)) {
        $user = new User();
 
-       $user->name = 'admin';
+       $user->username = 'admin';
        $user->email = $credentials['email'];
        $user->password = Hash::make($credentials['password']);
        $user->role = 'Admin';

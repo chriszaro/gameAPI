@@ -19,10 +19,19 @@ class GameController extends Controller
     public function index(Request $request)
     {
         $filter = new GameFilter();
-        $queryItems = $filter->transform($request);
+        $filterItems = $filter->transform($request);
 
-        return new GameCollection(Game::where($queryItems)->get());
+        $user = $request->user();
+        $user_id = $user->id;
+        $filterItems[] = ['user_id', '=', $user_id];
 
+        $sort = $request->query('sort');
+        if (isset($sort)){
+            return new GameCollection(Game::where($filterItems)->orderBy('release_date', $sort)->get());
+        }
+        else {
+            return new GameCollection(Game::where($filterItems)->get());
+        }
 
         //Game::where([['column', 'operator', 'value']]);
         //Game::where([['genre', 'like', '%' . $queryItems[0] . '%']]);
@@ -36,6 +45,7 @@ class GameController extends Controller
      */
     public function store(StoreGameRequest $request)
     {
+//        $request
         return new GameResource(Game::create($request->all()));
     }
 

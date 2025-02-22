@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\V1\UpdateGameRequest;
+use App\Http\Requests\V1\StoreUserRequest;
+use App\Http\Requests\V1\UpdateUserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -16,19 +18,16 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        //User::create($request->all());
+
+        User::create([
+            'username' => $request->username,
+            'password' => Hash::make($request->password), // Hash the password!
+        ]);
     }
 
     /**
@@ -40,17 +39,9 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $game)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGameRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         //
     }
