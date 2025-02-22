@@ -40,6 +40,9 @@ Route::group(
     ],
     function () {
         Route::apiResource('games', GameController::class);
+        Route::apiResource('users', UserController::class);
         Route::post('/logout', [AuthController::class, 'logout']);
+        Route::patch('/make_admin/{user}', [UserController::class, 'make_admin']);
+        Route::put('/make_admin/{user}', [UserController::class, 'make_admin']);
     }
 );
