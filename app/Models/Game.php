@@ -15,13 +15,15 @@ use Illuminate\Database\Query\Builder;
 class Game extends Model
 {
     protected $fillable = [
-        'title' => '',
-        'description' => '',
-        'genre' => '',
+        'title',
+        'description',
+        'genre',
+        'release_date',
+        'user_id'
     ];
 
     protected $casts = [
-        'release_date' => 'date',
+        'release_date' => 'date'
     ];
 
     use HasFactory;
