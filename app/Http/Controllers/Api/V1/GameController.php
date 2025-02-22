@@ -65,7 +65,13 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        return new GameResource($game);
+        $user = request()->user();
+        $user_id = $user->id;
+
+        if ($game->user_id == $user_id)
+            return new GameResource($game);
+        else
+            return response()->json(['message' => 'You cannot view another user\'s game'], 401);
     }
 
     /**
@@ -73,8 +79,15 @@ class GameController extends Controller
      */
     public function update(UpdateGameRequest $request, Game $game)
     {
-        $game->update($request->all());
-        return new GameResource($game);
+        $user = request()->user();
+        $user_id = $user->id;
+        if ($game->user_id == $user_id){
+            $game->update($request->all());
+            return new GameResource($game);
+        }
+        else
+            return response()->json(['message' => 'You cannot update another user\'s game'], 401);
+
     }
 
     /**
@@ -82,6 +95,11 @@ class GameController extends Controller
      */
     public function destroy(Game $game)
     {
-        $game->delete();
+        $user = request()->user();
+        $user_id = $user->id;
+        if ($game->user_id == $user_id)
+            $game->delete();
+        else
+            return response()->json(['message' => 'You cannot delete another user\'s game'], 401);
     }
 }
