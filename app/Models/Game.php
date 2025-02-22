@@ -18,8 +18,7 @@ class Game extends Model
         'title',
         'description',
         'genre',
-        'release_date',
-        'user_id'
+        'release_date'
     ];
 
     protected $casts = [

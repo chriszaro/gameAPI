@@ -45,8 +45,18 @@ class GameController extends Controller
      */
     public function store(StoreGameRequest $request)
     {
-//        $request
-        return new GameResource(Game::create($request->all()));
+        $user = $request->user();
+        $user_id = $user->id;
+
+        $game = new Game();
+        $game->title = $request->get('title');
+        $game->description = $request->get('description');
+        $game->release_date = $request->get('releaseDate');
+        $game->genre = $request->get('genre');
+        $game->user_id = $user_id;
+        $game->save();
+
+        return new GameResource($game);
     }
 
     /**

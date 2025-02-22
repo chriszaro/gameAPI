@@ -27,8 +27,7 @@ class StoreGameRequest extends FormRequest
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
             'releaseDate' => ['required', 'string'],
-            'genre' => ['required', 'string'],
-            'user_id' => ['required', 'integer'],
+            'genre' => ['required', 'string']
         ];
     }
 
