@@ -64,6 +64,7 @@ and then
     docker run -p 8000:80 demo/laravel:0.1
 
 **For database  running on docker:**
+
 First open the .env file in the project directory  
 and change DB_HOST property to
 
@@ -71,7 +72,8 @@ and change DB_HOST property to
 Open a terminal in the project's directory and run
 
     docker-compose up --build
-Now you should have two containers running, one for backend API and one for MySQL db.  
+Now you should have two containers running, one for backend API and one for MySQL db.
+  
 To create database schema/table, run
 
     docker-compose exec backend php artisan migrate
