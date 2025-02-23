@@ -49,6 +49,7 @@ Admin user: username = john57, password = password
 Regular user: username = jane68, password = secret
 
 ## Run API on docker
+API's Dockerfile does not install npm as it is not needed.  
 
 **For database running on PC host:**
 
@@ -56,6 +57,11 @@ First open the .env file in the project directory
 and change DB_HOST property to
 
     DB_HOST=host.docker.internal
+ and set your DB_PASSWORD to the value you have set in Workbench
+ 
+
+    DB_PASSWORD=
+
 Then open a terminal in the project's directory and run
 
     docker build -t demo/laravel:0.1 .
@@ -69,6 +75,9 @@ First open the .env file in the project directory
 and change DB_HOST property to
 
     DB_HOST=db
+ If you want to change the DB_PASSWORD I have set as default,  
+ you have to change it both in the .env file and in docker-compose.yml.
+ 
 Open a terminal in the project's directory and run
 
     docker-compose up --build
