@@ -15,9 +15,10 @@ This API works with JSON Body through Postman.
  - Authentication with Laravel Sanctum
  - User Registration, Log in, Log out
  - Two User roles: Admin and Regular User
- - Users can add, edit, delete and view a game record
- - Users can see a list of their games, sort them by Release Date and filter them by Genre
- - Users don't have access to other users' records
+ - Users can add, edit, delete and view a Game record
+ - Users can see a list of their Games, sort them by Release Date and filter them by Genre
+ - Users can add a Review (rating and comment) to a Game
+ - Users don't have access to other Users' records
  - Data validation during user registration, user login, game creation or update.
  - Admin can delete other users' games and make another user an Admin.
 
@@ -45,8 +46,8 @@ To create the database schema/table, run
 To populate the database, run
 
     php artisan db:seed
-Admin user: username = john57, password = password  
-Regular user: username = jane68, password = secret
+Admin user: username = JohnTester, password = Pass!123  
+Regular user: username = JaneTester, password = Pass!123
 
 ## Run API on docker
 API's Dockerfile does not install npm as it is not needed.  
@@ -89,8 +90,8 @@ To create database schema/table, run
 To populate the database, run
 
     docker-compose exec backend php artisan db:seed
-Admin user: username = john57, password = password  
-Regular user: username = jane68, password = secret
+Admin user: username = JohnTester, password = Pass!123  
+Regular user: username = JaneTester, password = Pass!123
 
 ## First steps
 You can either test the API with the provided users  
@@ -134,6 +135,12 @@ http://127.0.0.1:8000/api/v1/games (add new game)
 	       "genre":  "RPG"
        }
 
+http://127.0.0.1:8000/api/v1/games/{game_id}/add_review
+
+       {
+	       "rating":  "10",
+	       "comment":  "Great"
+       }
 
 ## GET Requests
 
