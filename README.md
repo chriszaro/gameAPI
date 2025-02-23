@@ -1,4 +1,5 @@
 ﻿# Simple Video Game Management System API
+This API works with JSON Body through Postman.
 
 ## Tech stack
 
@@ -7,6 +8,7 @@
  - Laravel 10.48
  - MySQL 8
  - docker
+ - Postman
 
 ## Supported Functionalities
 
@@ -21,14 +23,18 @@
 
 ## Run on PC
 
+Start MySQL service, it should run on port 3306
+Open MySQL Workbench
+Login as root
+Create a new database named laravel
+
 In project's directory, run
 
     php artisan serve
 
- The API starts on http://127.0.0.1:8000
+The API starts on http://127.0.0.1:8000
 
- With the MySQL database running on port 3306
-To create the database schema, run
+To create the database schema/table, run
 
     php artisan migrate
 To populate the database, run
@@ -53,54 +59,90 @@ and then
     docker run -p 8000:80 demo/laravel:0.1
 
 **For database  running on docker:**
+First open the .env file in the project directory
+and change DB_HOST property to
 
+    DB_HOST=db
+Open a terminal in the project's directory and run
+
+    docker-compose up --build
+Now you should have two containers running, one for backend API and one for MySQL db.
+To create database schema/table, run
+
+    docker-compose exec backend php artisan migrate
+To populate the database, run
+
+    docker-compose exec backend php artisan db:seed
+Admin user: username = john57, password = password
+Regular user: username = jane68, password = secret
+
+## First steps
+You can either test the API with the provided users
+or use Register to create new Regular User.
+After you Log in, a Token will be given to you.
+Type this Token in Postman's Authorization tab, in Bearer Token Type.
+In Header's tab you should disable the field with Accept key
+and write your own Accept key value pair with value as application/json
+
+You should be ready to use the API.
+
+## Examples
+Under every POST endpoint, i will provide an example of the Body raw JSON you should provide.
 
 ## POST Requests
 
-You can rename the current file by clicking the file name in the navigation bar or by clicking the **Rename** button in the file explorer.
+   http://127.0.0.1:8000/api/v1/register (no auth)
+   
+
+       {
+           "username":"Tester",
+           "password":"Pass!123"
+       }
+
+http://127.0.0.1:8000/api/v1/login (no auth)
+   
+
+       {
+           "username":"Tester",
+           "password":"Pass!123"
+       }
+
+http://127.0.0.1:8000/api/v1/logout (this request destroys the provided auth token)
+http://127.0.0.1:8000/api/v1/games (add new game)
+   
+
+       {
+	       "title":  "Black Myth: Wukong",
+	       "description":  "A monkey with a stuff",
+	       "releaseDate":  "2024-08-20",
+	       "genre":  "RPG"
+       }
+
 
 ## GET Requests
 
-You can delete the current file by clicking the **Remove** button in the file explorer. The file will be moved into the **Trash** folder and automatically deleted after 7 days of inactivity.
+- http://127.0.0.1:8000/api/v1/games (display user's games list)
+- http://127.0.0.1:8000/api/v1/games?genre=RPG (filter by genre)
+- http://127.0.0.1:8000/api/v1/games?sort=desc (order results descending)
+- http://127.0.0.1:8000/api/v1/games?sort=asc (order results ascending)
+- http://127.0.0.1:8000/api/v1/games?genre=RPG&sort=desc (filter and order)
+- http://127.0.0.1:8000/api/v1/games/{id} (display specific game)
+- http://127.0.0.1:8000/api/v1/users (only Admin)
+- http://127.0.0.1:8000/api/v1/users?includeGames=true (only Admin)
+- http://127.0.0.1:8000/api/v1/users/{id} (only Admin)
+- http://127.0.0.1:8000/api/v1/users/{id}?includeGames=true (only Admin)
 
 ## UPDATE (PUT/PATCH) Requests
 
-You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.
+http://127.0.0.1:8000/api/v1/games/{id} (update specific game)
+
+       {
+	       "title":  "Wukong",
+       }
+
+
+http://127.0.0.1:8000/api/v1/make_admin/{id} (makes user an admin)
 
 ## DELETE Requests
 
-You can export the current file by clicking **Export to disk** in the menu. You can choose to export the file as plain Markdown, as HTML using a Handlebars template or as a PDF.
-
-## API Endpoints
-
-|Functionality    |API Endpoint                 |
-|-----------------|-----------------------------|
-|Single backticks |'Isn't this fun?'            |
-|Quotes           |"Isn't this fun?"            |
-|Dashes           |-- is en-dash, --- is em-dash|
-
-## UML diagrams
-
-You can render UML diagrams using [Mermaid](https://mermaidjs.github.io/). For example, this will produce a sequence diagram:
-
-```mermaid
-sequenceDiagram
-Alice ->> Bob: Hello Bob, how are you?
-Bob-->>John: How about you John?
-Bob--x Alice: I am good thanks!
-Bob-x John: I am good thanks!
-Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
-
-Bob-->Alice: Checking with John...
-Alice->John: Yes... John, how are you?
-```
-
-And this will produce a flow chart:
-
-```mermaid
-graph LR
-A[Square Rect] -- Link text --> B((Circle))
-A --> C(Round Rect)
-B --> D{Rhombus}
-C --> D
-```
+- http://127.0.0.1:8000/api/v1/games/{id} (delete specific game)
