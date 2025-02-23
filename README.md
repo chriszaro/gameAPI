@@ -23,12 +23,17 @@ This API works with JSON Body through Postman.
 
 ## Run on PC
 
-Start MySQL service, it should run on port 3306
-Open MySQL Workbench
-Login as root
-Create a new database named laravel
+Start MySQL service, it should run on port 3306  
+Open MySQL Workbench  
+Login as root  
+Create a new database named laravel  
 
-In project's directory, run
+First open the .env file in the project directory  
+and change DB_HOST property to
+
+    DB_HOST=127.0.0.1
+
+Open a terminal in project's directory and run
 
     php artisan serve
 
@@ -40,14 +45,14 @@ To create the database schema/table, run
 To populate the database, run
 
     php artisan db:seed
-Admin user: username = john57, password = password
+Admin user: username = john57, password = password  
 Regular user: username = jane68, password = secret
 
 ## Run API on docker
 
 **For database running on PC host:**
 
-First open the .env file in the project directory
+First open the .env file in the project directory  
 and change DB_HOST property to
 
     DB_HOST=host.docker.internal
@@ -59,30 +64,30 @@ and then
     docker run -p 8000:80 demo/laravel:0.1
 
 **For database  running on docker:**
-First open the .env file in the project directory
+First open the .env file in the project directory  
 and change DB_HOST property to
 
     DB_HOST=db
 Open a terminal in the project's directory and run
 
     docker-compose up --build
-Now you should have two containers running, one for backend API and one for MySQL db.
+Now you should have two containers running, one for backend API and one for MySQL db.  
 To create database schema/table, run
 
     docker-compose exec backend php artisan migrate
 To populate the database, run
 
     docker-compose exec backend php artisan db:seed
-Admin user: username = john57, password = password
+Admin user: username = john57, password = password  
 Regular user: username = jane68, password = secret
 
 ## First steps
-You can either test the API with the provided users
-or use Register to create new Regular User.
-After you Log in, a Token will be given to you.
-Type this Token in Postman's Authorization tab, in Bearer Token Type.
-In Header's tab you should disable the field with Accept key
-and write your own Accept key value pair with value as application/json
+You can either test the API with the provided users  
+or use Register to create new Regular User.  
+After you Log in, a Token will be given to you.  
+Type this Token in Postman's Authorization tab, in Bearer Token Type.  
+In Header's tab you should disable the field with Accept key  
+and write your own Accept key value pair with value as application/json  
 
 You should be ready to use the API.
 
