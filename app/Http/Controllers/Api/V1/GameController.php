@@ -7,6 +7,7 @@ use App\Http\Requests\V1\StoreGameRequest;
 use App\Http\Requests\V1\UpdateGameRequest;
 use App\Http\Resources\V1\GameCollection;
 use App\Http\Resources\V1\GameResource;
+use App\Http\Resources\V1\UserResource;
 use App\Models\Game;
 use Illuminate\Http\Request;
 
@@ -69,7 +70,7 @@ class GameController extends Controller
         $user_id = $user->id;
 
         if ($game->user_id == $user_id)
-            return new GameResource($game);
+            return new GameResource($game->loadMissing('review'));
         else
             return response()->json(['message' => 'You cannot view another user\'s game'], 401);
     }

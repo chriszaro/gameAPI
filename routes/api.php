@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\GameController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,7 @@ Route::group(
         Route::apiResource('games', GameController::class);
         Route::apiResource('users', UserController::class);
         Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/games/{game}/add_review', [ReviewController::class, 'store']);
         Route::patch('/make_admin/{user}', [UserController::class, 'make_admin']);
         Route::put('/make_admin/{user}', [UserController::class, 'make_admin']);
     }

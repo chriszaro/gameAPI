@@ -5,7 +5,7 @@ namespace App\Http\Resources\V1;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GameResource extends JsonResource
+class ReviewResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +15,8 @@ class GameResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'releaseDate' => $this->release_date,
-            'genre' => $this->genre,
-            'review' => ReviewResource::make($this->whenLoaded('review'))
+            'rating' => $this->rating,
+            'comment' => $this->comment
         ];
     }
 }
