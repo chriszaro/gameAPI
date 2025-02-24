@@ -36,6 +36,10 @@ and change DB_HOST property to
 
 Open a terminal in project's directory and run
 
+    composer update
+to create vendor directory  
+and then run
+
     php artisan serve
 
 The API starts on http://127.0.0.1:8000
